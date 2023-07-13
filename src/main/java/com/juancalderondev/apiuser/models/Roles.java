@@ -1,6 +1,7 @@
 package com.juancalderondev.apiuser.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="roles")
@@ -10,16 +11,21 @@ public class Roles {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="user_id")
-    private Users user;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "id_role"),
+            inverseJoinColumns = @JoinColumn(name = "id_user")
+    )
+    private List<Users> user;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="endpoint_id")
     private Endpoints endpoint;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="operation_id")
+
+    @ManyToOne( fetch = FetchType.LAZY)
+    @JoinColumn(name = "operation_id")
     private Operations operation;
 
     private Roles(){
@@ -34,11 +40,11 @@ public class Roles {
         this.id = id;
     }
 
-    public Users getUser() {
+    public List<Users> getUser() {
         return user;
     }
 
-    public void setUser(Users user) {
+    public void setUser(List<Users> user) {
         this.user = user;
     }
 

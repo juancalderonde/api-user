@@ -2,6 +2,7 @@ package com.juancalderondev.apiuser.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Table(name="operations")
@@ -13,8 +14,9 @@ public class Operations {
     @NotNull
     private String name;
 
-    @OneToOne(mappedBy = "operation", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Roles role;
+
+    @OneToMany(mappedBy ="operation",fetch = FetchType.LAZY)
+    private List<Roles> role;
 
     public Operations() {
     }
@@ -35,11 +37,11 @@ public class Operations {
         this.name = name;
     }
 
-    public Roles getRole() {
+    public List<Roles> getRole() {
         return role;
     }
 
-    public void setRole(Roles role) {
+    public void setRole(List<Roles> role) {
         this.role = role;
     }
 }

@@ -2,6 +2,7 @@ package com.juancalderondev.apiuser.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Table(name="endpoints")
@@ -13,8 +14,8 @@ public class Endpoints {
     @NotNull
     private String endpointUri;
 
-    @OneToOne(mappedBy = "endpoint", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Roles role;
+    @OneToMany(mappedBy ="endpoint", fetch = FetchType.EAGER)
+    private List<Roles> role;
 
     private Endpoints(){
 
@@ -34,11 +35,11 @@ public class Endpoints {
         this.endpointUri = endpointUri;
     }
 
-    public Roles getRole() {
+    public List<Roles> getRole() {
         return role;
     }
 
-    public void setRole(Roles role) {
+    public void setRole(List<Roles> role) {
         this.role = role;
     }
 }
