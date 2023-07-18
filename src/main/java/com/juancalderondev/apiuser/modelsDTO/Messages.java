@@ -1,4 +1,4 @@
-package com.juancalderondev.apiuser.models;
+package com.juancalderondev.apiuser.modelsDTO;
 
 public class Messages {
 

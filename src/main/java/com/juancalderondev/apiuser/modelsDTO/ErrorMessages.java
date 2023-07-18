@@ -1,4 +1,4 @@
-package com.juancalderondev.apiuser.models;
+package com.juancalderondev.apiuser.modelsDTO;
 
 import java.util.List;
 
@@ -30,4 +30,6 @@ public class ErrorMessages {
     public void setErrorList(List<Messages> errorList) {
         this.errorList = errorList;
     }
+
+
 }

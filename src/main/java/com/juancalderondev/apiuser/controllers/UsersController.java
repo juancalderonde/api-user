@@ -1,7 +1,7 @@
 package com.juancalderondev.apiuser.controllers;
 
-import com.juancalderondev.apiuser.models.ErrorMessages;
-import com.juancalderondev.apiuser.models.Messages;
+import com.juancalderondev.apiuser.modelsDTO.ErrorMessages;
+import com.juancalderondev.apiuser.modelsDTO.Messages;
 import com.juancalderondev.apiuser.models.Users;
 import com.juancalderondev.apiuser.services.UsersServices;
 import com.juancalderondev.apiuser.constants.ConstantEndPoint;
@@ -29,23 +29,24 @@ public class UsersController {
         if(result.hasErrors()){
             List<Messages> errorResponse = new ArrayList<>();
             for(FieldError fieldError: result.getFieldErrors()){
-                errorResponse.add(createResponseMessage(fieldError.getField(),fieldError.getDefaultMessage()));
+                errorResponse.add(usersServices.createResponseMessage(fieldError.getField(),fieldError.getDefaultMessage()));
             }
             ErrorMessages errorMessage = new ErrorMessages("error", errorResponse);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
         }else{
-            return ResponseEntity.status(HttpStatus.OK).body(createResponseMessage("ok","creacion_correcta"));
+            return ResponseEntity.status(HttpStatus.OK).body(usersServices.createResponseMessage("ok","creacion_correcta"));
         }
     }
 
-
-
-    private Messages createResponseMessage (String typeMessage, String message){
-        Messages messageResponse = new Messages();
-        messageResponse.setMessage(message);
-        messageResponse.setTypeMessage(typeMessage);
-        return messageResponse;
+    @GetMapping(ConstantEndPoint.LOGIN_USER)
+    public ResponseEntity<?> logInUser(@RequestBody @Valid Users userLogIn, BindingResult result){
+        String token = usersServices.checksLogIn(userLogIn, result);
+        return ResponseEntity.status(HttpStatus.OK).body("ok");
     }
+
+
+
+
 
 
 

@@ -19,12 +19,12 @@ public class Roles {
     )
     private List<Users> user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="endpoint_id")
     private Endpoints endpoint;
 
 
-    @ManyToOne( fetch = FetchType.LAZY)
+    @ManyToOne( fetch = FetchType.EAGER)
     @JoinColumn(name = "operation_id")
     private Operations operation;
 
