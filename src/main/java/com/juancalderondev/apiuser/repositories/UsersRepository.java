@@ -12,10 +12,5 @@ import java.util.Optional;
 public interface UsersRepository extends CrudRepository<Users, Long> {
     Optional<Users> findByEmail(String emailToCheck);
 
-//    @Query("SELECT a, b, c " +
-//            "FROM users a " +
-//            "LEFT JOIN roles b" +
-//            "LEFT JOIN endpoints c" +
-//            "ON a.id = b.")
-//    List<Users> getRolesAndOperations();
+
 }
